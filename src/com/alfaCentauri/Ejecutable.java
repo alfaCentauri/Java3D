@@ -24,7 +24,7 @@ public class Ejecutable extends javax.swing.JFrame {
      */
     public Ejecutable() throws HeadlessException {
         initComponents();
-        this.setTitle("Grafica de pruebas.");
+        this.setTitle(TITLE);
     }
 
     /**
@@ -35,7 +35,7 @@ public class Ejecutable extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Graficas");
 
-        Panel.setBackground(new java.awt.Color(186, 175, 155));
+        Panel.setBackground(new java.awt.Color(106, 93, 69));
     }
 
     /***/
