@@ -10,13 +10,18 @@ import java.awt.*;
  */
 public class Ejecutable extends javax.swing.JFrame {
 
+    //Componentes gráficos
     private javax.swing.JPanel Panel;
     private javax.swing.JLabel Etiqueta1;
     private javax.swing.JLabel Etiqueta2;
 
+    //Constantes
     public static final int HEIGHT = 800;
     public static final int WIDTH = 600;
     public static final String TITLE = "Ejemplo de Java 3D.";
+    //Multi hilos
+    private Thread thread;
+    private boolean running;
 
     /**
      * Constructs a new frame that is initially invisible.
@@ -39,13 +44,14 @@ public class Ejecutable extends javax.swing.JFrame {
      * Inicio de componentes.
      **/
     private void initComponents() {
+        running = false;
         Panel = new javax.swing.JPanel();
         Etiqueta1 = new javax.swing.JLabel();
         Etiqueta2 = new javax.swing.JLabel();
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Graficas");
         //Panel de trabajo
-        Panel.setBackground(new java.awt.Color(106, 93, 69));
+        Panel.setBackground(new java.awt.Color(217, 162, 58));
 
         Etiqueta1.setFont(new java.awt.Font("Arial Black", 0, 12));
         Etiqueta1.setText("Valor1 =");
@@ -62,7 +68,7 @@ public class Ejecutable extends javax.swing.JFrame {
         Etiqueta2.setLocation(10, 40);
         Etiqueta2.setVisible(true);
         Panel.add(Etiqueta2);
-
+        //Configuración de dimensiones y posición
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -78,11 +84,39 @@ public class Ejecutable extends javax.swing.JFrame {
         setBounds((screenSize.width-768)/2, (screenSize.height-621)/2, 768, 621);
     }
 
+    /** Inicia la ejecución multihilos sino esta activa. **/
+    private void start() {
+        if ( running )
+            return;
+        running = true;
+        thread = new Thread("hilo1");
+        thread.start();
+    }
+
+    /** Detiene la ejecución del multihilo, si esta detenido no hace nada. **/
+    private void stop() {
+        if ( !running )
+            return;
+        running = false;
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+    }
+
     /***/
     public static void main(String []args) {
         System.out.println("Ejemplos de Java 3D.");
         Ejecutable ventana = new Ejecutable();
+//        ventana.pack();
+//        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        ventana.setSize(HEIGHT,WIDTH);
+//        ventana.setResizable(false);
+//        ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
+        System.out.println("Running...");
         System.out.println("Fin del ejemplo.");
     }
 }
